@@ -20,6 +20,10 @@ class PollController extends Controller
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
+        if (auth()->user()->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
         $validate = Validator::make($request->all(), [
             'title' => ['required'],
             'description' => ['required'],
